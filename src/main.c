@@ -6,8 +6,8 @@
 #define DAC_BITS 12
 
 uint16_t lut_waveform[LUT_SIZE];
-uint8_t acc;
-uint8_t phi;
+uint16_t acc;
+uint16_t phi;
 void lut_init(void){
     //calculate LUT values for a sin wave
     //scale and upward shift sin so the following conditions are met
@@ -45,8 +45,8 @@ void dac_init(void){
     DAC->CR |= (1 << 16);
 }
 void TIM2_IRQHandler(void){
-    //get lut value and place it in the dac
-    DAC->DHR12R2 = lut_waveform[acc];
+    //truncate rightmost 8 bits of acc and use it to get the lut value
+    DAC->DHR12R2 = lut_waveform[acc >> 8];
     //increment accumulator by phase increment
     acc += phi;
     //clear the timer interrupt flag
@@ -55,8 +55,8 @@ void TIM2_IRQHandler(void){
 int main(void){
     //reset the accumulator
     acc = 0;
-    //phase increment of 1 yields a 172 Hz wave
-    phi = 1;
+    //phase increment of 256 yields a 172 Hz wave
+    phi = 256;
     //call init routines
     lut_init();
     dac_init();
