@@ -1,5 +1,5 @@
 # DAC for STM32F407G-DISC1
-Generate a waveform using a lut, timer interrupt, and the dac on you discovery board. This project uses a minimal setup which only includes the register definitions from St and the CMSIS core. It is helpful to have an oscilloscope around to view the waveform output.
+>Generate a waveform using a lut, timer interrupt, and the dac on you discovery board. This project uses a minimal setup which only includes the register definitions from St and the CMSIS core. It is helpful to have an oscilloscope around to view the waveform output.
 
 ## Required Tools
 * [GNU Make](https://www.gnu.org/software/make/)
